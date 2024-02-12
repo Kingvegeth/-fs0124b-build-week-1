@@ -1,0 +1,12 @@
+body {
+    background-image: url(../img/bg.jpg);
+    background-size: cover;
+    font-family: 'Inter', sans-serif;
+}
+
+.header img {
+    margin-left: 8%;
+    width: 300px;
+    height: auto;
+    padding: 80px 0;
+}
