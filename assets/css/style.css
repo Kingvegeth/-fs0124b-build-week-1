@@ -1,0 +1,10 @@
+body {
+    background-image: url(../img/bg.jpg);
+    background-size: cover;
+}
+.header img {
+    margin-left: 8%;
+    width: 300px;
+    height: auto;
+    padding: 80px 0;
+}
