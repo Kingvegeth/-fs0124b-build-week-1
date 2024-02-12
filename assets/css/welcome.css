@@ -1,0 +1,90 @@
+body {
+    margin-left: 8%;
+    margin-right: 8%;
+}
+
+.font-title {
+    
+}
+
+.font_text {
+    font-size: 16px;
+}
+
+.h2_wlc {
+    color: white;
+    line-height: 0.6;
+    font-family: 'outfit';
+    font-size: 60px;
+}
+.h2_wlc_wrap {
+    margin-bottom: 3rem;
+}
+
+.h2_wlc_bold {
+    font-weight: bold;
+}
+
+.h3_instructions {
+    color: #d20094;
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 1rem ;
+}
+
+.style_text {
+    color: white;
+    line-height: 1.1;
+    font-size: 2rem;
+    list-style: disc;
+}
+
+.p_style {
+    width: 60rem;
+}
+
+.instruction_wrap {
+    margin-bottom: 4rem;
+}
+
+.ul {
+    margin-left: 3rem;
+    margin-bottom: 8rem;
+}
+
+.p_form {
+    color: white;
+    line-height: 1.1;
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.i_promise {
+    display: flex;
+}
+
+form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10rem;
+}
+
+.proceed_button {
+    background-color:#00ffff ;
+    width: 20rem;
+    height: 7rem;
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #001f1f;    
+    box-shadow: 0 0 30px #00ffff;
+    
+}
+.input {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.bold_span {
+    font-weight: bold;
+
+}
