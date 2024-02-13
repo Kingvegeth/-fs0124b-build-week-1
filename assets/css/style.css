@@ -11,24 +11,31 @@ body {
     padding: 80px 0;
 }
 
-.title {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.center {
-    display: flex;
-    flex-direction: column;
-    max-width: 45%;
-    margin: auto;
-}
-
 .container {
     color: white;
     font-size: 20px;
     text-align: center;
     padding: 0 13rem;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    max-width: 98%;
+    margin: auto;
+    font-size: 26px;
+    line-height: 35px;
+}
+
+.title {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.stars {
+    margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 .comment {
@@ -40,21 +47,18 @@ body {
     width: 100%;
     border-bottom: 2px solid #D20094;  
     padding-bottom: 5px;
-    padding-left: 15px;
-    margin: 40px 0 50px 20px;
-    font-size: 1rem;
-}
-
-.stars {
-    margin-top: 30px;
-    margin-bottom: 50px;
+    padding-left: 20px;
+    margin: 40px 0 50px 0;
+    font-size: 20px;
+    line-height: 30px;
 }
 
 .button {
-    font-size: 20px;
+    font-size: 25px;
     background-color: #00ffff;
-    box-shadow: 0 0 30px #006ec956;
+    box-shadow: 0 0 30px #00ffff;
     border: none;
-    padding: 20px 40px;
+    padding: 18px 50px;
     font-weight: bold;
+    margin-top: 15px;
 }
