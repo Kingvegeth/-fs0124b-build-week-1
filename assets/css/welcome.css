@@ -1,24 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
 body {
     margin-left: 8%;
     margin-right: 8%;
+    font-family: "Outfit", sans-serif;
+    color: white;
 }
 
-.font-title {
-    
+.welcome{
+    padding: 50px 80px;
+    width: 100%;
 }
 
-.font_text {
-    font-size: 16px;
-}
 
 .h2_wlc {
     color: white;
     line-height: 0.6;
-    font-family: 'outfit';
     font-size: 60px;
 }
 .h2_wlc_wrap {
     margin-bottom: 3rem;
+    
+}
+
+.h2_wlc_wrap h2{
+    font-size: 7em;
 }
 
 .h2_wlc_bold {
@@ -26,18 +32,32 @@ body {
 }
 
 .h3_instructions {
+    margin-top: 70px;
     color: #d20094;
-    font-size: 4rem;
     font-weight: bold;
     margin-bottom: 1rem ;
 }
 
+.instruction_wrap h3{
+    font-size: 2.6em;
+}
+
+.instruction_wrap p{
+    font-size: 1.4rem;
+}
+
+.lists li{
+    font-size: 1.4rem;
+    margin: 10px 0;
+}
+
 .style_text {
-    color: white;
     line-height: 1.1;
     font-size: 2rem;
     list-style: disc;
+    width: 100%;
 }
+
 
 .p_style {
     width: 60rem;
@@ -53,38 +73,49 @@ body {
 }
 
 .p_form {
-    color: white;
+
     line-height: 1.1;
     font-size: 1.7rem;
     font-weight: bold;
 }
 
-.i_promise {
-    display: flex;
+
+.i_promise p{
+    font-size: 1.2rem;
+    display: inline-block;
 }
+.check{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    accent-color: #d20094;
+    border: 2px solid white;
+    background-color: none;
+}
+
+/*la checkbox non deve avere un colore*/
+
 
 form {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 10rem;
 }
 
 .proceed_button {
     background-color:#00ffff ;
-    width: 20rem;
-    height: 7rem;
-    font-size: 2.6rem;
+    border:none;
+    padding: 20px 60px;
+    margin-right: 100px;
+    font-size: 1.8rem;
     text-transform: uppercase;
     font-weight: bold;
-    color: #001f1f;    
+    color: #0B113B;    
     box-shadow: 0 0 30px #00ffff;
     
-}
-.input {
-    background-color: rgba(0, 0, 0, 0);
 }
 
 .bold_span {
     font-weight: bold;
-
 }
