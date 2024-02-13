@@ -32,9 +32,10 @@ body {
 
 #answer {
    max-width: 100%;
+   padding: 0 250px;
    margin: 0 auto;
    display: flex;
-   justify-content: space-evenly;
+   justify-content: center;
    flex-wrap: wrap;
    height: 220px;
 }
@@ -46,10 +47,11 @@ body {
    border: 1px solid #ebebeb;
    border-radius: 60px;
    padding: 10px 20px;
-   margin: 20px 80px;
+   margin: 20px;
    box-shadow: -2px -2px 2px #ebebeb;
    cursor: pointer;
 }
+
 
 #answer div:hover {
    background:linear-gradient(180deg, rgba(194,18,141,1) 0%, rgba(108,10,79,1) 100%);
@@ -61,8 +63,10 @@ body {
 
 #taskTitle {
    height: 150px;
-   margin-bottom: 30px;
-   font-weight: bold;
+   width: 900px;
+   margin: auto;
+   margin-bottom: 50px;
+   font-size: 50px;
 }
 
 #currentQuestion {
@@ -107,9 +111,11 @@ body {
    justify-content: center;
 }
 
+
 .option{
-   font-size: 1.1rem;
-   font-weight: bold;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 .evidence {
@@ -178,9 +184,26 @@ header {
    justify-content: space-between;
 }
 #timerWrapper {
+   margin-bottom: 60px;
    height: 200px;
    width: 400px;
+   position: relative;
+}
 
+.seconds,.remaining{
+   position: absolute;
+   font-size: 0.6rem;
+}
+
+.seconds{
+   top: 70px;
+   left: 125px;
+   z-index: 1;
+}
+.remaining{
+   top: 130px;
+   left: 122px;
+   z-index: 2;
 }
 
 #timerChart {
@@ -188,7 +211,7 @@ header {
    max-width: 300px;
 }
 #timerDiv {
-   font-size: 2em;
+   font-size: 3.5rem;
    display: inline;
    position: relative;
    top: 90px;

@@ -201,7 +201,7 @@ function result () {
 </div>
 
 <div>
-  <form action = "feedback.html">
+  <form action = "https://epicode.com/it/.html">
     <button id="resultButton"> RATE US </button>
   </form>
 </div>
