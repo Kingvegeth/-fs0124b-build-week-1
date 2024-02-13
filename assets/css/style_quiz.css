@@ -196,20 +196,24 @@ header {
 }
 
 .seconds{
-   top: 70px;
-   left: 125px;
+   top: 80px;
+   left: 140px;
    z-index: 1;
 }
 .remaining{
-   top: 130px;
-   left: 122px;
+   top: 145px;
+   left: 137px;
    z-index: 2;
 }
 
 #timerChart {
+   position: absolute;
    width: 100%;
    max-width: 300px;
+   top: 44px;
+   left: 14px;
 }
+
 #timerDiv {
    font-size: 3.5rem;
    display: inline;
@@ -217,4 +221,5 @@ header {
    top: 90px;
    left: 133px;
 }
+
 
