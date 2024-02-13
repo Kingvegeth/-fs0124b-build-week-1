@@ -201,7 +201,7 @@ function result () {
 </div>
 
 <div>
-  <form action = "https://epicode.com/it/.html">
+  <form action = "#">
     <button id="resultButton"> RATE US </button>
   </form>
 </div>
@@ -213,7 +213,7 @@ function result () {
   let testo; 
 
   if ( rightAnswers >= 5 ) {
-    testo =` <span class="color"> <span class="resultDonut"> Congratulations!</span> you passed the exam </span>`
+    testo =` <span class="color"> <span class="resultDonut"> Congratulations!</span><p>you passed the exam</p> </span><p class="instructions">We'll send you the certificate in few minutes.</p><p class="instructions"> Check your email (including promotions/spam folder)</p>`
   } else {
     testo = ` <span class="color"> <span class="resultDonut"> Sorry! </span> <br> you didn't pass the exam </span>`
   }

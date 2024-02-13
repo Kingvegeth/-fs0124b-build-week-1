@@ -24,10 +24,12 @@ body {
 
 .align-right {
    text-align: right;
+   padding-right: 500px;
 }
 
 .align-left {
    text-align: left;
+   padding-left: 500px;
 }
 
 #answer {
@@ -48,7 +50,7 @@ body {
    border-radius: 60px;
    padding: 10px 20px;
    margin: 20px;
-   box-shadow: -2px -2px 2px #ebebeb;
+   box-shadow: 0 -2px 2px #ebebeb;
    cursor: pointer;
 }
 
@@ -120,22 +122,23 @@ body {
 
 .evidence {
    font-weight: bold;
+   font-size: 3.5rem;
    margin-bottom: 8px;
 }
 
 .color  {
    display: inline-block;
    width: 245px;
-   height: 100px;
+   height: 80px;
    color: #00FFFF;;
    font-weight: bold;
-   font-size: 2em;
+   font-size: 1.4rem;
 }
 
 .resultDonut {
    color: #ebebeb;
    font-weight: bold;
-   font-size: 1em;
+   font-size: 1.4rem;
 }
 
 .flex {
@@ -168,17 +171,20 @@ body {
 }
 
 #textResult {
-   width: 500px;
+   width: 300px;
    position: relative;
    right: 520px;
    display: inline-block;
+   font-size: 1rems;
 }
 
 #resultChart {
-   margin-left: 200px;
+   margin-left:  200px;
    width:100%; 
    max-width:3000px; 
+
 }
+
 header {
    display: flex;
    justify-content: space-between;
@@ -222,4 +228,11 @@ header {
    left: 133px;
 }
 
+.instructions{
+   line-height: 1.5rem;
+}
+
+#resultButton:hover{
+   box-shadow: 0 0 30px #00ffff;
+}
 
