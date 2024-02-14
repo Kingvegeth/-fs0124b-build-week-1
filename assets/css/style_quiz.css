@@ -93,6 +93,7 @@ body {
    display: flex;
    justify-content: space-around;
    margin: 3em;
+   margin-left: 4.2rem; /*sposta cerchio*/
 }
 
 #resultButton {
@@ -182,8 +183,8 @@ body {
    margin-left:  200px;
    width:100%; 
    max-width:3000px; 
-
 }
+
 
 header {
    display: flex;
