@@ -1,227 +1,133 @@
-const questions = [
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "What does CPU stand for?",
-    correct_answer: "Central Processing Unit",
-    allAnswers: [
-      "Central Process Unit",
-      "Computer Personal Unit",
-      "Central Processor Unit",
-      "Central Processing Unit",
-    ],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question:
-      "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn&#039;t get modified?",
-    correct_answer: "Final",
-    allAnswers: ["Static", "Final", "Private", "Public"],
-  },
-  {
-    category: "Science: Computers",
-    type: "boolean",
-    difficulty: "easy",
-    question: "The logo for Snapchat is a Bell.",
-    correct_answer: "False",
-    allAnswers: ["True", "False",],
-  },
-  {
-    category: "Science: Computers",
-    type: "boolean",
-    difficulty: "easy",
-    question:
-      "Pointers were not used in the original C programming language; they were added later on in C++.",
-    correct_answer: "False",
-    allAnswers: ["True", "False",],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question:
-      "What is the most preferred image format used for logos in the Wikimedia database?",
-    correct_answer: ".svg",
-    allAnswers: [".svg", ".png", ".jpeg", ".gif",],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "In web design, what does CSS stand for?",
-    correct_answer: "Cascading Style Sheet",
-    allAnswers: [
-      "Counter Strike: Source",
-      "Cascading Style Sheet",
-      "Corrective Style Sheet",
-      "Computer Style Sheet",
-    ],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question:
-      "What is the code name for the mobile operating system Android 7.0?",
-    correct_answer: "Nougat",
-    allAnswers: [
-      "Ice Cream Sandwich",
-      "Nougat",
-      "Jelly Bean",
-      "Marshmallow",
-    ],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "On Twitter, what is the character limit for a Tweet?",
-    correct_answer: "140",
-    allAnswers: ["140", "120", "160", "100"],
-  },
-  {
-    category: "Science: Computers",
-    type: "boolean",
-    difficulty: "easy",
-    question: "Linux was first created as an alternative to Windows XP.",
-    correct_answer: "False",
-    allAnswers: ["True", "False",],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question:
-      "Which programming language shares its name with an island in Indonesia?",
-    correct_answer: "Java",
-    allAnswers: ["Python", "C", "Jakarta", "Java",],
-  },
-];
+let questions = [];
 
 /* aggancia il wrapper che conterrà il titolo della domanda generata e crea
 un altro container che conterràle risposte possibili */
 function generateQuestions() {
   let wrapper = document.getElementById('questionWrapper');
-  wrapper.innerHTML = `
-  <div id="question">
-    <h2 id="taskTitle">${randomQuestions[currentQuestion].question}</h2>
-  </div>
-<div id="answer" class="align-center"></div>
-  `;
 
-  /*aggancia il container precedentemente generato tramite il for loop partendo da indice = 0, ovvero currentQuestion si cicla per tutta la lunghezza 
-del array allAnswer all'interno dell'oggetto */
-  let containerQuestion = document.getElementById('answer');
-  for (let i = 0; i < randomQuestions[currentQuestion].allAnswers.length; i++) {
-    containerQuestion.innerHTML += `
-    <div class="option">${randomQuestions[currentQuestion].allAnswers[i]}</div>
+  if (questions.results && questions.results.length > 0) {
+    let currentQuestionObj = questions.results[currentQuestion];
+
+    wrapper.innerHTML = `
+      <div id="question">
+        <h2 id="taskTitle">${currentQuestionObj.question}</h2>
+      </div>
+      <div id="answer" class="align-center"></div>
     `;
-  }
- 
-  /* utilizzando il template literal inietta nel wrapper il valore*/
-  wrapper.innerHTML += `
-  <div id="currentQuestion">Domanda ${currentQuestion + 1} <span>/ 10</span></div>
-  `
-  /*prendi ogni singola opzione tra le quattro, e aggiungi eventListener*/
-  let option = document.getElementsByClassName('option');
 
-  for (let i = 0; i < option.length; i++) {
-    let element = option[i];
-    element.addEventListener("click", () => {
-      nextQuestion(element.innerHTML);
-      
-    })
+    let containerQuestion = document.getElementById('answer');
+    for (let i = 0; i < currentQuestionObj.incorrect_answers.length; i++) {
+      containerQuestion.innerHTML += `
+        <div class="option">${currentQuestionObj.incorrect_answers[i]}</div>
+      `;
+    }
+
+    containerQuestion.innerHTML += `
+      <div class="option">${currentQuestionObj.correct_answer}</div>
+    `;
+
+    wrapper.innerHTML += `
+      <div id="currentQuestion">Domanda ${currentQuestion + 1} <span>/ 10</span></div>
+    `;
+
+    let option = document.getElementsByClassName('option');
+
+    for (let i = 0; i < option.length; i++) {
+      let element = option[i];
+      element.addEventListener("click", () => {
+        nextQuestion(element.innerHTML);
+      });
+    }
+  } else {
+    console.error("Nessun risultato valido ottenuto dalla richiesta.");
   }
-};
+}
 
 /* controlla se l'array delle risposte è più corto, se la condizione è vera la stringa all'interno del contenitore option viene pushata. l'indice aumenta di 1 */
 let nextQuestion = function (string) {
-  if (userAnswers.length < randomQuestions.length-1) {
   userAnswers.push(string);
   console.log(userAnswers);
-  currentQuestion += 1;
-  generateQuestions(currentQuestion, userAnswers);
-  resetTimer();
-}
-  else {
-  userAnswers.push(string);
-  console.log(userAnswers);
-  stopTimer();
-  let wrapper = document.getElementById('questionWrapper');
-  wrapper.remove();
-  let orologio = document.getElementById('timerWrapper')
-  orologio.remove();
-  let progressBar = document.getElementById('progressBar');
-  progressBar.remove();
-  result();
+
+  if (currentQuestion < questions.results.length - 1) {
+    // Ci sono ancora domande, passa alla successiva
+    currentQuestion += 1;
+    generateQuestions();
+    resetTimer();
+  } else {
+    // Tutte le domande sono state risposte, mostra i risultati
+    stopTimer();
+    let wrapper = document.getElementById('questionWrapper');
+    wrapper.remove();
+    let orologio = document.getElementById('timerWrapper');
+    orologio.remove();
+    let progressBar = document.getElementById('progressBar');
+    progressBar.remove();
+    result();
   }
 };
 
 /*aggancia il main, inizializza due variabile, cicla la lunghezza dell'array, se la risposta pushata nell'array userAnswers è uguale il valore della variabile
 rightAnswer incrementa di 1*/
-function result () {
+function result() {
   let main = document.getElementById('main');
   let rightAnswers = 0;
   let wrongAnswers = 0;
-  for(let i=0; i < randomQuestions.length; i++) {
-    if (randomQuestions[i].correct_answer == userAnswers[i]){
-      rightAnswers+=1;
+
+  for (let i = 0; i < questions.results.length; i++) {
+    let userAnswer = userAnswers[i];
+    let correctAnswer = questions.results[i].correct_answer;
+
+    if (userAnswer === correctAnswer) {
+      rightAnswers += 1;
     } else {
-      wrongAnswers+=1;
+      wrongAnswers += 1;
     }
   }
 
-  /*viene stabilito tramite template literal il nuovo HTML che avrà la pagina risultato, inserendo il calcolo in percentuale delle risposta giuste/sbagliate*/
-  main.innerHTML =`
-<div>
-  <h2 class="evidence">Results</h2> 
-  <p class="subTitle">The summary of your answer: </p> 
-</div>
+  main.innerHTML = `
+    <div>
+      <h2 class="evidence">Results</h2> 
+      <p class="subTitle">The summary of your answer: </p> 
+    </div>
 
-<div id="flexContainer">
+    <div id="flexContainer">
 
-  <div class="Answers align-left">
-   Correct <br> <span class="evidence"> ${(rightAnswers / randomQuestions.length)*100}% </span>
-   <p class="miniTitle"> ${rightAnswers}/${randomQuestions.length} questions </p> 
-  </div>
+      <div class="Answers align-left">
+        Correct <br> <span class="evidence"> ${(rightAnswers / questions.results.length) * 100}% </span>
+        <p class="miniTitle"> ${rightAnswers}/${questions.results.length} questions </p> 
+      </div>
 
-  <div id="answerText" class="flex">
-  <canvas id="resultChart"></canvas>
-  <div id="textResult"></div>
-  </div>
+      <div id="answerText" class="flex">
+        <canvas id="resultChart"></canvas>
+        <div id="textResult"></div>
+      </div>
 
-  <div class="Answers align-right">
-    Wrong <br> <span class="evidence"> ${(wrongAnswers / randomQuestions.length)*100}% </span>
-    <p class="miniTitle"> ${wrongAnswers}/${randomQuestions.length} questions </p> 
-  </div>
+      <div class="Answers align-right">
+        Wrong <br> <span class="evidence"> ${(wrongAnswers / questions.results.length) * 100}% </span>
+        <p class="miniTitle"> ${wrongAnswers}/${questions.results.length} questions </p> 
+      </div>
 
-</div>
+    </div>
 
-<div>
-  <form action = "feedback.html">
-    <button id="resultButton"> RATE US </button>
-  </form>
-</div>
+    <div>
+      <form action="feedback.html">
+        <button id="resultButton"> RATE US </button>
+      </form>
+    </div>
   `;
 
-  /* viene dichiarata una variabile alla quale verrà assegnato un valore differente a seconda del numero di risposte esatte,
-  se maggiori o uguale a 5 verrà mostrato un messaggio, altrimenti un altro. La variabile teste che contiene i messaggi sarà,
-  utilizzata come valore del div con id answerText precedentemente generato*/
-  let testo; 
+  let testo;
 
-  if ( rightAnswers >= 5 ) {
-    testo =` <span class="color"> <span class="resultDonut"> Congratulations!</span><p>You passed the exam.</p> </span><p class="instructions">We'll send you the certificate in few minutes.</p><p class="instructions"> Check your email (including promotions/spam folder)</p>`
+  if (rightAnswers >= 5) {
+    testo = `<span class="color"><span class="resultDonut"> Congratulations!</span><p>You passed the exam.</p> </span><p class="instructions">We'll send you the certificate in few minutes.</p><p class="instructions"> Check your email (including promotions/spam folder)</p>`;
   } else {
-    testo = ` <span class="color"> <span class="resultDonut"> Sorry! </span> <br> You didn't pass the exam.</span>`
+    testo = ` <span class="color"> <span class="resultDonut"> Sorry! </span> <br> You didn't pass the exam.</span>`;
   }
 
-  const textResult = document.getElementById("textResult"); 
+  const textResult = document.getElementById("textResult");
   textResult.innerHTML = testo;
 
-  donutChart(wrongAnswers , rightAnswers ) 
+  donutChart(wrongAnswers, rightAnswers);
 }
 
 /* imposta un intervallo di 1000 millisecondi*/
@@ -229,7 +135,6 @@ function startTimer () {
   timerInterval = setInterval(function() {updateTimer();}, 1000);
 }
 
-//comando contratio
 function stopTimer () {
   clearInterval(timerInterval);
 }
@@ -283,12 +188,12 @@ function reloadTimerHtml() {
 5)per far si che non vengano estratti doppioni è necessario utilizzare splice, che ci permette di togliere 1 elemento corrispondente nell'array al numero generato,
 splice in questo caso è in una gioiosa collaborazione con randValue, perchè ogni volta che un numero viene generato viene anche automaticamente rimosso.*/
 function randomize() {
-  let tempIndex = temp.length
+  let tempIndex = temp.length;
   for (let i = 0; i < tempIndex; i++) {
     let randValue = Math.floor(Math.random() * temp.length);
     randomQuestions.push(temp[randValue]);
     temp.splice(randValue, 1);
-  } 
+  }
 }
 function donutTimer(timerSeconds) {
   let avanzo = (30-timerSeconds);
@@ -368,17 +273,24 @@ let randomQuestions = [];
 7)imposta decremento secondi;
 8)inizializza il timer*/
 window.onload = function () {
-  currentQuestion=0;
-  randomize();
-  generateQuestions();
+  currentQuestion = 0;
 
-  timerSeconds = 30;
+  // Fetch delle domande da un URL esterno
+  fetch('https://opentdb.com/api.php?amount=10&category=18&difficulty=easy')
+  .then(response => response.json())
+  .then(data => {
+    // Assegna le domande ottenute alla variabile questions
+    questions = data;
+    randomize();
+    generateQuestions();
 
-  donutTimer(timerSeconds);
-  let clock = document.getElementById('timerDiv')
-  clock.innerHTML=timerSeconds;
+    timerSeconds = 30;
 
-  timerSeconds--;
-  startTimer();
-  
-};
+    donutTimer(timerSeconds);
+    let clock = document.getElementById('timerDiv');
+    clock.innerHTML = timerSeconds;
+
+    timerSeconds--;
+    startTimer();
+  });
+}
