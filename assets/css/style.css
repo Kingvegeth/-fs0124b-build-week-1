@@ -12,7 +12,7 @@ body {
     width: 100%;
 }
 
-.header img {
+header img {
     margin-left: 100px;
     margin-top: 50px;
     width: 200px;
@@ -113,10 +113,13 @@ body {
     background-color: aqua;
 }
 
-.clicked{
-    background-color: white;
+.checkmark{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: bold;
 }
-
 
 form {
     display: flex;
@@ -126,18 +129,22 @@ form {
 }
 
 .proceed_button {
-    background-color:#00ffff ;
-    border:none;
+    background:none;
+    border:2px solid white;
+    color: white;
     padding: 20px 60px;
     margin-right: 600px;
     font-size: 1.8rem;
     text-transform: uppercase;
     font-weight: bold;
-    color: #0B113B;
+    box-shadow: 0 0 30px #006ec956;
 }
 
 .proceed_button:hover{
     box-shadow: 0 0 30px #00ffff;
+    background-color:#00ffff;
+    color: #0B113B;
+    border:2px solid #00ffff;
 }
 
 .bold_span {
@@ -152,13 +159,13 @@ form {
 .feedback-container {
     font-size: 20px;
     text-align: center;
-    padding: 0 13rem;
+    padding: 100px 13rem 0 13rem;
 }
 
 .center {
     display: flex;
     flex-direction: column;
-    max-width: 98%;
+    max-width: 44%;
     margin: auto;
     font-size: 26px;
     line-height: 35px;
@@ -177,6 +184,7 @@ form {
 
 .star{
     margin: 5px;
+    width: 50px;
 }
 
 .comment {
@@ -185,31 +193,33 @@ form {
     outline: none;
     color: white;
     text-align: left;
-    width: 100%;
+    width: 44%;
     border-bottom: 2px solid #D20094;  
     padding-bottom: 5px;
-    padding-left: 20px;
+    padding-left: 30px;
     margin: 40px 0 50px 0;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 30px;
 }
 
 .button {
+    display: block;
     font-size: 25px;
     font-family: "Inter", sans-serif;
     border: 2px solid white;
     padding: 18px 50px;
     font-weight: bold;
-    margin-top: 15px;
+    margin: 15px auto;
     background: none;
     color: white;
+    box-shadow: 0 0 30px #006ec956;
 }
 
 .button:hover{
-    border: none;
+    border: 2px solid  #00ffff;
     box-shadow: 0 0 30px #00ffff;
     background-color: #00ffff;
-    color: black;
+    color: #0B113B;
 }
 
 .stelline{
@@ -228,12 +238,6 @@ form {
 
  .margin-left {
     margin-left: 10%;
- }
- 
- #imgLogo {
-    width: 150px;
-    height: auto;
-    padding-bottom: 80px;
  }
  
  .align-center {
@@ -441,10 +445,12 @@ form {
  }
  
  #resultButton {
-    padding: 0.8em  3em;
+    padding: 20px  60px;
+    margin: auto;
+    display: block;
     background-color: transparent;
-    border: 2px solid #ebebeb;
-    color: #ebebeb;
+    border: 2px solid white;
+    color: white;
     font-family: "Inter", sans-serif;
     font-weight: bold;
     box-shadow: 0 0 30px #006ec956;
@@ -453,10 +459,10 @@ form {
  }
  
  #resultButton:hover{
-    border: none;
+    border: 2px solid  #00ffff;
     box-shadow: 0 0 30px #00ffff;
     background-color: #00ffff;
-    color: black;
+    color: #0B113B;
  }
 
  .hidden{
