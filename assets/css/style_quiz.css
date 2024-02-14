@@ -96,17 +96,6 @@ body {
    margin-left: 4.2rem; /*sposta cerchio*/
 }
 
-#resultButton {
-   padding: 0.8em  3em;
-   background-color: transparent;
-   border: 2px solid #ebebeb;
-   color: #ebebeb;
-   font-weight: bold;
-   box-shadow: 0 0 30px #006ec956;
-   font-size: 1.5em;
-   cursor: pointer;
-}
-
 .Answers {
    font-size: 4em;
    display: flex;
@@ -233,7 +222,22 @@ header {
    line-height: 1.5rem;
 }
 
+#resultButton {
+   padding: 0.8em  3em;
+   background-color: transparent;
+   border: 2px solid #ebebeb;
+   color: #ebebeb;
+   font-family: "Inter", sans-serif;
+   font-weight: bold;
+   box-shadow: 0 0 30px #006ec956;
+   font-size: 1.5em;
+   cursor: pointer;
+}
+
 #resultButton:hover{
+   border: none;
    box-shadow: 0 0 30px #00ffff;
+   background-color: #00ffff;
+   color: black;
 }
 
