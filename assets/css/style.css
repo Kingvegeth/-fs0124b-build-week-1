@@ -13,14 +13,15 @@ body {
 }
 
 .header img {
-    margin-left: 8%;
-    width: 300px;
+    margin-left: 100px;
+    margin-top: 50px;
+    width: 200px;
     height: auto;
-    padding: 80px 0;
+    
 }
 
 .welcome{
-    padding: 50px 0 50px 200px;
+    padding: 100px 0 50px 100px;
     width: 90%;
 }
 
@@ -43,7 +44,7 @@ body {
 }
 
 .h3_instructions {
-    margin-top: 70px;
+    margin-top: 50px;
     color: #d20094;
     font-weight: bold;
     margin-bottom: 1rem ;
@@ -80,7 +81,7 @@ body {
 
 .ul {
     margin-left: 2rem;
-    margin-bottom: 7rem;
+    margin-bottom: 5rem;
 }
 
 .p_form {
@@ -128,7 +129,7 @@ form {
     background-color:#00ffff ;
     border:none;
     padding: 20px 60px;
-    margin-right: 500px;
+    margin-right: 600px;
     font-size: 1.8rem;
     text-transform: uppercase;
     font-weight: bold;
