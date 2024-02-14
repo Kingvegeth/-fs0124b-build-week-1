@@ -13,4 +13,7 @@ check.addEventListener("click", () => {
 button.addEventListener("click", (e) => {
   e.preventDefault()
   if (!check.classList.contains("clicked")) alerta.classList.remove("hidden");
+  else{
+    
+  }
 });

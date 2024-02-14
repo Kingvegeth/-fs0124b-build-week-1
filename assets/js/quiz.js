@@ -201,7 +201,7 @@ function result () {
 </div>
 
 <div>
-  <form action = "#">
+  <form action = "feedback.html">
     <button id="resultButton"> RATE US </button>
   </form>
 </div>
