@@ -12,6 +12,11 @@ body {
     width: 100%;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+ }
+
 header img {
     margin-left: 100px;
     margin-top: 50px;
@@ -20,7 +25,13 @@ header img {
     
 }
 
-.welcome{
+.quiz-header{
+    display: flex;
+    justify-content: space-between;
+ }
+ 
+ 
+#welcome{
     padding: 100px 0 50px 100px;
     width: 90%;
 }
@@ -156,7 +167,7 @@ form {
     text-decoration: underline;
 }
 
-.feedback-container {
+#feedback-container {
     font-size: 20px;
     text-align: center;
     padding: 100px 13rem 0 13rem;
@@ -175,11 +186,13 @@ form {
     font-size: 2.5em;
     font-weight: bold;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .stars {
     margin-top: 30px;
     margin-bottom: 50px;
+    text-align: center;
 }
 
 .star{
@@ -197,7 +210,7 @@ form {
     border-bottom: 2px solid #D20094;  
     padding-bottom: 5px;
     padding-left: 30px;
-    margin: 40px 0 50px 0;
+    margin: 40px 0 50px 27%;
     font-size: 16px;
     line-height: 30px;
 }
@@ -396,11 +409,7 @@ form {
     max-width:3000px; 
  }
  
- 
- header {
-    display: flex;
-    justify-content: space-between;
- }
+
  #timerWrapper {
     margin-bottom: 60px;
     height: 200px;

@@ -1,10 +1,9 @@
 let questions = [];
-let difficulty = 'hard'
-let questionsNumber = 13
-let correctThreshold = Math.ceil(questionsNumber/2)
 let rightAnswersList = []
 let wrongAnswersList = []
-
+let difficulty = sessionStorage.getItem('difficulty')
+let questionsNumber = sessionStorage.getItem('n')
+let correctThreshold = Math.ceil(questionsNumber/2)
 
 /* aggancia il wrapper che conterrà il titolo della domanda generata e crea
 un altro container che conterràle risposte possibili */
@@ -49,28 +48,47 @@ function generateQuestions() {
   }
 }
 
-/* controlla se l'array delle risposte è più corto, se la condizione è vera la stringa all'interno del contenitore option viene pushata. l'indice aumenta di 1 */
+function findOptionByText(text) {
+  let options = document.querySelectorAll('.option');
+  return Array.from(options).find(option => option.textContent.includes(text));
+}
+
 let nextQuestion = function (string) {
   userAnswers.push(string);
-  console.log(userAnswers);
 
-  if (currentQuestion < questions.results.length - 1) {
-    // Ci sono ancora domande, passa alla successiva
-    currentQuestion += 1;
-    generateQuestions();
-    resetTimer();
+  let correctAnswer = questions.results[currentQuestion].correct_answer;
+  let selectedOption = findOptionByText(string);
+
+  if (selectedOption) {
+    if (string === correctAnswer) {
+      selectedOption.style.background = 'linear-gradient(180deg, rgba(0,255,0,0.7315301120448179) 0%, rgba(1,97,1,1) 100%)';
+    } else {
+      selectedOption.style.background = 'linear-gradient(180deg, rgba(255,0,0,0.7315301120448179) 0%, rgba(97,1,1,1) 100%)';
+    }
+
+    setTimeout(() => {
+      selectedOption.style.background = '';
+
+      if (currentQuestion < questions.results.length - 1) {
+        currentQuestion += 1;
+        generateQuestions();
+        resetTimer();
+      } else {
+        stopTimer();
+        let wrapper = document.getElementById('questionWrapper');
+        wrapper.remove();
+        let orologio = document.getElementById('timerWrapper');
+        orologio.remove();
+        let progressBar = document.getElementById('progressBar');
+        progressBar.remove();
+        result();
+      }
+    }, 1000);
   } else {
-    // Tutte le domande sono state risposte, mostra i risultati
-    stopTimer();
-    let wrapper = document.getElementById('questionWrapper');
-    wrapper.remove();
-    let orologio = document.getElementById('timerWrapper');
-    orologio.remove();
-    let progressBar = document.getElementById('progressBar');
-    progressBar.remove();
-    result();
+    console.error("Opzione non trovata per il testo:", string);
   }
 };
+
 
 /*aggancia il main, inizializza due variabile, cicla la lunghezza dell'array, se la risposta pushata nell'array userAnswers è uguale il valore della variabile
 rightAnswer incrementa di 1*/

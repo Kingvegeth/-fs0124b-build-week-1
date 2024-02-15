@@ -175,7 +175,7 @@ body {
 }
 
 
-header {
+.quiz-header {
    display: flex;
    justify-content: space-between;
 }
