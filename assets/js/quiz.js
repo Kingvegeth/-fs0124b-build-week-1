@@ -1,4 +1,10 @@
 let questions = [];
+let difficulty = 'hard'
+let questionsNumber = 13
+let correctThreshold = Math.ceil(questionsNumber/2)
+let rightAnswersList = []
+let wrongAnswersList = []
+
 
 /* aggancia il wrapper che conterrà il titolo della domanda generata e crea
 un altro container che conterràle risposte possibili */
@@ -27,7 +33,7 @@ function generateQuestions() {
     `;
 
     wrapper.innerHTML += `
-      <div id="currentQuestion">Domanda ${currentQuestion + 1} <span>/ 10</span></div>
+      <div id="currentQuestion">Domanda ${currentQuestion + 1} <span>/ ${questionsNumber}</span></div>
     `;
 
     let option = document.getElementsByClassName('option');
@@ -79,46 +85,47 @@ function result() {
 
     if (userAnswer === correctAnswer) {
       rightAnswers += 1;
+      rightAnswersList.push(userAnswer)
     } else {
       wrongAnswers += 1;
+      wrongAnswersList.push(userAnswer)
     }
   }
-
   main.innerHTML = `
-    <div>
-      <h2 class="evidence">Results</h2> 
-      <p class="subTitle">The summary of your answer: </p> 
-    </div>
-
-    <div id="flexContainer">
-
-      <div class="Answers align-left">
-        Correct <br> <span class="evidence"> ${(rightAnswers / questions.results.length) * 100}% </span>
-        <p class="miniTitle"> ${rightAnswers}/${questions.results.length} questions </p> 
-      </div>
-
-      <div id="answerText" class="flex">
-        <canvas id="resultChart"></canvas>
-        <div id="textResult"></div>
-      </div>
-
-      <div class="Answers align-right">
-        Wrong <br> <span class="evidence"> ${(wrongAnswers / questions.results.length) * 100}% </span>
-        <p class="miniTitle"> ${wrongAnswers}/${questions.results.length} questions </p> 
-      </div>
-
-    </div>
-
-    <div>
-      <form action="feedback.html">
-        <button id="resultButton"> RATE US </button>
-      </form>
-    </div>
+  <div>
+  <h2 class="evidence">Results</h2> 
+  <p class="subTitle">The summary of your answer: </p> 
+  </div>
+  
+  <div id="flexContainer">
+  
+  <div class="Answers align-left">
+  Correct <br> <span class="evidence"> ${Math.floor((rightAnswers / questions.results.length) * 100)}% </span>
+  <p class="miniTitle"> ${rightAnswers}/${questions.results.length} questions </p> 
+  </div>
+  
+  <div id="answerText" class="flex">
+  <canvas id="resultChart"></canvas>
+  <div id="textResult"></div>
+  </div>
+  
+  <div class="Answers align-right">
+  Wrong <br> <span class="evidence"> ${Math.ceil((wrongAnswers / questions.results.length) * 100)}% </span>
+  <p class="miniTitle"> ${wrongAnswers}/${questions.results.length} questions </p> 
+  </div>
+  
+  </div>
+  
+  <div>
+  <form action="feedback.html">
+  <button id="resultButton"> RATE US </button>
+  </form>
+  </div>
   `;
-
+  
   let testo;
-
-  if (rightAnswers >= 5) {
+  
+  if (rightAnswers >= correctThreshold) {
     testo = `<span class="color"><span class="resultDonut"> Congratulations!</span><p>You passed the exam.</p> </span><p class="instructions">We'll send you the certificate in few minutes.</p><p class="instructions"> Check your email (including promotions/spam folder)</p>`;
   } else {
     testo = ` <span class="color"> <span class="resultDonut"> Sorry! </span> <br> You didn't pass the exam.</span>`;
@@ -276,7 +283,7 @@ window.onload = function () {
   currentQuestion = 0;
 
   // Fetch delle domande da un URL esterno
-  fetch('https://opentdb.com/api.php?amount=10&category=18&difficulty=easy')
+  fetch(`https://opentdb.com/api.php?amount=${questionsNumber}&category=18&difficulty=${difficulty}`)
   .then(response => response.json())
   .then(data => {
     // Assegna le domande ottenute alla variabile questions
