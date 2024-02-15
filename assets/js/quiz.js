@@ -294,3 +294,10 @@ window.onload = function () {
     startTimer();
   });
 }
+
+let quizResults = JSON.parse(localStorage.getItem('quizResults')) || [];
+
+function addResult(questionId, userAnswer) {
+    quizResults.push({ questionId, userAnswer });
+    localStorage.setItem('quizResults', JSON.stringify(quizResults));
+}
