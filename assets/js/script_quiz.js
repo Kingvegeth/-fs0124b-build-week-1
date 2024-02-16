@@ -2,8 +2,8 @@
 let questions = [];
 let rightAnswersList = [];
 let wrongAnswersList = [];
-let difficulty = sessionStorage.getItem('difficulty');
-let questionsNumber = sessionStorage.getItem('n');
+let difficulty = sessionStorage.getItem('difficulty') || "easy";
+let questionsNumber = sessionStorage.getItem('n') || "15";
 let correctThreshold = Math.ceil(questionsNumber / 2);
 
 // Funzione per generare le domande e le risposte
@@ -339,7 +339,9 @@ let randomQuestions = [];
 
   // Fetch delle domande da un URL esterno
 function getFetch(params) {
-  
+
+  difficulty = sessionStorage.getItem('difficulty')
+  questionsNumber = sessionStorage.getItem('n')
   fetch(`https://opentdb.com/api.php?amount=${questionsNumber}&category=18&difficulty=${difficulty}`)
   .then(response => {
     if (!response.ok) {
