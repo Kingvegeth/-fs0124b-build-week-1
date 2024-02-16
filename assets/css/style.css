@@ -490,10 +490,25 @@ form {
   color: #0b113b;
 }
 
+
 #win {
+  color: black;
+	-webkit-text-stroke: 1px ;
+	text-shadow: 0px 3.7px 10px gold;
   text-align: center;
-  padding-top: 10%;
+  padding-top: 5%;
   font-size: 7rem;
+}
+
+#seal{
+  text-align: center;
+  margin-top: 50px;
+  
+}
+
+#seal img{
+  box-shadow: 0 0 70px gold;
+  border-radius: 20px;
 }
 
 .win-button {
