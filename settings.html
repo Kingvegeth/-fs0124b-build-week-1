@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Document</title>
+</head>
+
+    <body onload="playAudio()">
+      <header class="header">
+        <img src="./assets/img/epicode_logo.png" alt="Epicode Logo" />
+      </header>
+        <audio id="myAudio" src="./assets/media/success.mp3" type="audio/mpeg">
+          Il tuo browser non supporta l'elemento audio.
+        </audio>
+        <p id="win">SEI AUTOMATICAMENTE PROMOSSO!</p>
+        <script>
+        function playAudio() {
+          var audio = document.getElementById('myAudio');
+          audio.play();
+        }
+        </script>
+      </body>
+
+</html>

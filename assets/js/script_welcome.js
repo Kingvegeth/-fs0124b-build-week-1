@@ -15,7 +15,7 @@ check.addEventListener("click", () => {
   // Altrimenti, aggiungi la classe 'clicked', inserisci un'icona di spunta nell'HTML interno e nascondi il messaggio di avviso
   else {
     check.classList.add("clicked");
-    check.innerHTML = '<ion-icon name="checkmark-outline" class="checkmark"></ion-icon>';
+    check.innerHTML = '<ion-icon name="checkmark-sharp" class="checkmark"></ion-icon>';
     alerta.classList.add("hidden");
   }
 });
