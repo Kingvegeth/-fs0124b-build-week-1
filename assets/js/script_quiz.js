@@ -175,6 +175,7 @@ if (rightAnswers >= correctThreshold) {
   testo = `<span class="color"><span class="resultDonut"> Congratulations!</span><p>You passed the exam.</p> </span><p class="instructions">We'll send you the certificate in few minutes.</p><p class="instructions"> Check your email (including promotions/spam folder)</p>`;
 } else {
   testo = ` <span class="color"> <span class="resultDonut"> Sorry! </span> <br> You didn't pass the exam.</span>`;
+  document.body.style.backgroundImage = "url(./assets/img/bg2.jpg)";
 }
 
 // Aggiorna il testo dei risultati nella pagina HTML

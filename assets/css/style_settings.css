@@ -17,8 +17,8 @@ header img {
 .form-container {
   margin: auto;
   display: flex;
-  flex-direction:row;
-  justify-content:center;
+  flex-direction: row;
+  justify-content: center;
   padding-top: 50px;
 }
 
@@ -104,7 +104,7 @@ header img {
   z-index: 0;
   left: 0;
   top: 0;
-  transition: .15s ease;
+  transition: 0.15s ease;
 }
 .radio-input label:has(input:checked) {
   color: #fff;
@@ -114,15 +114,14 @@ header img {
   display: inline-block;
 }
 .radio-input label:nth-child(1):has(input:checked) ~ .selection-difficulty {
-  transform: translateX(calc(var(--container_width) * 0/3));
+  transform: translateX(calc(var(--container_width) * 0 / 3));
 }
 .radio-input label:nth-child(2):has(input:checked) ~ .selection-difficulty {
-  transform: translateX(calc(var(--container_width) * 1/3));
+  transform: translateX(calc(var(--container_width) * 1 / 3));
 }
 .radio-input label:nth-child(3):has(input:checked) ~ .selection-difficulty {
-  transform: translateX(calc(var(--container_width) * 2/3));
+  transform: translateX(calc(var(--container_width) * 2 / 3));
 }
-
 
 /* Form numero domande */
 .selection-question {
@@ -133,7 +132,7 @@ header img {
   z-index: 0;
   left: 0;
   top: 0;
-  transition: .15s ease;
+  transition: 0.15s ease;
 }
 .radio-input label:has(input:checked) {
   color: #fff;
@@ -143,27 +142,26 @@ header img {
   display: inline-block;
 }
 .radio-input label:nth-child(1):has(input:checked) ~ .selection-question {
-  transform: translateX(calc(var(--container_width) * 0/3));
+  transform: translateX(calc(var(--container_width) * 0 / 3));
 }
 .radio-input label:nth-child(2):has(input:checked) ~ .selection-question {
-  transform: translateX(calc(var(--container_width) * 1/3));
+  transform: translateX(calc(var(--container_width) * 1 / 3));
 }
 .radio-input label:nth-child(3):has(input:checked) ~ .selection-question {
-  transform: translateX(calc(var(--container_width) * 2/3));
+  transform: translateX(calc(var(--container_width) * 2 / 3));
 }
-
 
 /* Start button */
 .div-button {
   margin: auto;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   padding-top: 50px;
 }
 
 .start_button {
-  background:none;
-  border:2px solid white;
+  background: none;
+  border: 2px solid white;
   color: white;
   padding: 20px 60px;
   font-size: 1.8rem;
@@ -172,11 +170,9 @@ header img {
   box-shadow: 0 0 30px #006ec956;
 }
 
-.start_button:hover{
+.start_button:hover {
   box-shadow: 0 0 30px #00ffff;
-  background-color:#00ffff;
-  color: #0B113B;
-  border:2px solid #00ffff;
+  background-color: #00ffff;
+  color: #0b113b;
+  border: 2px solid #00ffff;
 }
-
-
