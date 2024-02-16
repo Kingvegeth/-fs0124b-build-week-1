@@ -336,9 +336,9 @@ let randomQuestions = [];
 7)Imposta decremento secondi;
 8)Inizializza il timer*/
   currentQuestion = 0;
-  
+
   // Fetch delle domande da un URL esterno
-function pippo(params) {
+function getFetch(params) {
   
   fetch(`https://opentdb.com/api.php?amount=${questionsNumber}&category=18&difficulty=${difficulty}`)
   .then(response => {
