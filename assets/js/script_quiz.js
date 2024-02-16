@@ -241,7 +241,11 @@ randomQuestions.push(temp[randValue]);
 temp.splice(randValue, 1);
 }
 }
-let timerColor = "#00FFFF"
+
+let timerColor = "#00FFFF" //Inizializza il colore base del timer
+
+
+//Richiama il timer, e gestisce il cambio di colore in base al tempo
 function donutTimer(timerSeconds) {
 let avanzo = (30-timerSeconds);
 let xValues = ["Tempo rimanente", "Tempo passato"];
@@ -287,6 +291,8 @@ let xValues = ["Wrong Answers", "Right Answers"];
 let yValues = [wrongAnswers, rightAnswers];
 let barColors = ["#C2128D", "#00FFFF"]
 
+
+//Crea il grafico a ciambella dei risultati
 new Chart("resultChart", {
 type: "doughnut",
 data: {
@@ -306,6 +312,7 @@ circumference : 2*Math.PI
 }
 })
 };
+
 /*
 1)TimerSeconds = utilizzata per storare il valore del timer in un determinato momento;
 2)TimerInterval = utilizzata per storare il timer in se;
@@ -329,6 +336,7 @@ let randomQuestions = [];
 7)Imposta decremento secondi;
 8)Inizializza il timer*/
   currentQuestion = 0;
+  
   // Fetch delle domande da un URL esterno
 function pippo(params) {
   

@@ -1,29 +1,29 @@
-// Ottenere i riferimenti agli elementi HTML
+// Ottiene i riferimenti agli elementi HTML
 const settingsPage2 = document.getElementById('settings'); // Pagina delle impostazioni
 const quizPage = document.getElementById('quiz'); // Pagina del quiz
 
-// Impostare la difficoltà predefinita e il numero di domande predefinito nella sessionStorage
+// Imposta la difficoltà predefinita e il numero di domande predefinito nella sessionStorage
 sessionStorage.setItem('difficulty','easy'); // Impostare la difficoltà predefinita su "easy"
 sessionStorage.setItem('n',10); // Impostare il numero di domande predefinito su 10
 
 /* Gestione dell'impostazione della difficoltà e del numero di domande */
-const startButton = document.querySelector(".start_button"); // Selezionare il pulsante di avvio
+const startButton = document.querySelector(".start_button"); // Seleziona il pulsante di avvio
 
 startButton.addEventListener("click", function () {
-  // Ottenere l'input selezionato per la difficoltà
+  // Ottiene l'input selezionato per la difficoltà
   const selectedDifficultyInput = document.querySelector('input[name="difficulty"]:checked');
-  const difficulty = selectedDifficultyInput.value; // Ottenere il valore della difficoltà selezionata
-  sessionStorage.setItem('difficulty', difficulty); // Impostare la difficoltà selezionata nella sessionStorage
+  const difficulty = selectedDifficultyInput.value; // Ottiene il valore della difficoltà selezionata
+  sessionStorage.setItem('difficulty', difficulty); // Imposta la difficoltà selezionata nella sessionStorage
 
-  // Ottenere l'input selezionato per il numero di domande
+  // Ottiene l'input selezionato per il numero di domande
   const selectedQuestionsNumberInput = document.querySelector('input[name="question-number"]:checked');
-  const number = selectedQuestionsNumberInput.value; // Ottenere il valore del numero di domande selezionato
-  sessionStorage.setItem('n', number); // Impostare il numero di domande selezionato nella sessionStorage
+  const number = selectedQuestionsNumberInput.value; // Ottiene il valore del numero di domande selezionato
+  sessionStorage.setItem('n', number); // Imposta il numero di domande selezionato nella sessionStorage
   
-  // Nascondere la pagina delle impostazioni e mostrare la pagina del quiz
+  // Nasconde la pagina delle impostazioni e mostrare la pagina del quiz
   settingsPage2.classList.add('hidden'); // Nascondere la pagina delle impostazioni
   quizPage.classList.remove('hidden'); // Mostrare la pagina del quiz
   
-  // Eseguire una funzione chiamata 'pippo' (potrebbe essere una funzione di inizializzazione del quiz)
-  pippo(); 
+  // Esegue il fetch delle domande
+  getFetch(); 
 });
