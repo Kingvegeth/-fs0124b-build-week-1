@@ -1,6 +1,9 @@
 const settingsPage2 = document.getElementById('settings')
 const quizPage = document.getElementById('quiz')
 
+sessionStorage.setItem('difficulty','easy')
+sessionStorage.setItem('n',10)
+
 /* IMPOSTAZIONE DIFFICOLTA' E NUMERO DOMANDE*/
 const startButton = document.querySelector(".start_button");
 
@@ -15,6 +18,7 @@ startButton.addEventListener("click", function () {
     
     settingsPage2.classList.add('hidden')
     quizPage.classList.remove('hidden')
+    pippo()
   });
 
   

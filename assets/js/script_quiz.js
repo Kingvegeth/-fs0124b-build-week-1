@@ -333,26 +333,32 @@ let randomQuestions = [];
 
   currentQuestion = 0;
 
+
   // Fetch delle domande da un URL esterno
+function pippo(params) {
+  
   fetch(`https://opentdb.com/api.php?amount=${questionsNumber}&category=18&difficulty=${difficulty}`)
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     return response.json();
+    
   })
   .then(data => {
     // Assegna le domande ottenute alla variabile questions
     questions = data;
     randomize();
     generateQuestions();
-
+    
     timerSeconds = 30;
-
+    
     donutTimer(timerSeconds);
     let clock = document.getElementById('timerDiv');
     clock.innerHTML = timerSeconds;
-
+    
     timerSeconds--;
     startTimer();
   });
+}
+  
