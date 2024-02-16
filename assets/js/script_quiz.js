@@ -342,6 +342,7 @@ function getFetch(params) {
 
   difficulty = sessionStorage.getItem('difficulty')
   questionsNumber = sessionStorage.getItem('n')
+  correctThreshold = Math.ceil(questionsNumber / 2);
   fetch(`https://opentdb.com/api.php?amount=${questionsNumber}&category=18&difficulty=${difficulty}`)
   .then(response => {
     if (!response.ok) {

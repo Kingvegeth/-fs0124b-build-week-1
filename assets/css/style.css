@@ -519,6 +519,10 @@ form {
     cursor: pointer;
 }
 
+.new-body{
+    background-image: url(../img/bg2.jpg);
+}
+
  .hidden{
     display:none;
 }
