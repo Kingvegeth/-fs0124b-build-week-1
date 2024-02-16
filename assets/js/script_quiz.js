@@ -5,8 +5,7 @@ let difficulty = sessionStorage.getItem('difficulty')
 let questionsNumber = sessionStorage.getItem('n')
 let correctThreshold = Math.ceil(questionsNumber/2)
 
-/* aggancia il wrapper che conterrà il titolo della domanda generata e crea
-un altro container che conterràle risposte possibili */
+
 function generateQuestions() {
   let wrapper = document.getElementById('questionWrapper');
 
@@ -21,18 +20,21 @@ function generateQuestions() {
     `;
 
     let containerQuestion = document.getElementById('answer');
-    for (let i = 0; i < currentQuestionObj.incorrect_answers.length; i++) {
+
+    // Combina risposte corrette e scorrette in un array
+    let allAnswers = currentQuestionObj.incorrect_answers.concat(currentQuestionObj.correct_answer);
+
+    // Randomizza l'ordine dell'array
+    allAnswers = shuffleArray(allAnswers);
+
+    for (let i = 0; i < allAnswers.length; i++) {
       containerQuestion.innerHTML += `
-        <div class="option">${currentQuestionObj.incorrect_answers[i]}</div>
+        <div class="option">${allAnswers[i]}</div>
       `;
     }
 
-    containerQuestion.innerHTML += `
-      <div class="option">${currentQuestionObj.correct_answer}</div>
-    `;
-
     wrapper.innerHTML += `
-      <div id="currentQuestion">Domanda ${currentQuestion + 1} <span>/ ${questionsNumber}</span></div>
+      <div id="currentQuestion">QUESTION ${currentQuestion + 1} <span>/ ${questionsNumber}</span></div>
     `;
 
     let option = document.getElementsByClassName('option');
@@ -46,6 +48,15 @@ function generateQuestions() {
   } else {
     console.error("Nessun risultato valido ottenuto dalla richiesta.");
   }
+}
+
+// Funzione per mescolare un array in modo casuale
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 function findOptionByText(text) {
@@ -83,15 +94,12 @@ let nextQuestion = function (string) {
         progressBar.remove();
         result();
       }
-    }, 1000);
+    }, 800);
   } else {
     console.error("Opzione non trovata per il testo:", string);
   }
 };
 
-
-/*aggancia il main, inizializza due variabile, cicla la lunghezza dell'array, se la risposta pushata nell'array userAnswers è uguale il valore della variabile
-rightAnswer incrementa di 1*/
 function result() {
   let main = document.getElementById('main');
   let rightAnswers = 0;
@@ -123,7 +131,7 @@ function result() {
   </div>
   
   <div id="answerText" class="flex">
-  <canvas id="resultChart"></canvas>
+  <div class=ring-shadow><canvas id="resultChart"></canvas></div>
   <div id="textResult"></div>
   </div>
   
@@ -135,12 +143,25 @@ function result() {
   </div>
   
   <div>
-  <form action="feedback.html">
+  <form>
   <button id="resultButton"> RATE US </button>
   </form>
   </div>
   `;
   
+
+  const quizPage2 = document.getElementById('quiz')
+  const feedbackPage = document.getElementById('feedback-container')
+
+const rateUsButton = document.getElementById('resultButton')
+rateUsButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    quizPage2.classList.add('hidden')
+    feedbackPage.classList.remove('hidden')
+  });
+
+
+
   let testo;
   
   if (rightAnswers >= correctThreshold) {
@@ -155,7 +176,6 @@ function result() {
   donutChart(wrongAnswers, rightAnswers);
 }
 
-/* imposta un intervallo di 1000 millisecondi*/
 function startTimer () {
   timerInterval = setInterval(function() {updateTimer();}, 1000);
 }
@@ -164,12 +184,15 @@ function stopTimer () {
   clearInterval(timerInterval);
 }
 
-/*La funzione updateTimer esegue un refresh a video di timer e progress bar tramite la funzione reloadTimerHTML,imposta la condizione secondo la quale se il timer arriva allo zero,
-la funzione nextQuestion avrà come parametro null invece di string, perciò verrà pushato un valore null nell'array poiche non è stata effettuata alcuna scelta da parte dell'utente*/
 function updateTimer() {
 
   reloadTimerHtml();
-  if (timerSeconds == 0) {nextQuestion(null);}
+  if (timerSeconds == 0) {
+    timerColor = "#00FFFF"
+    resetTimer()
+    currentQuestion += 1;
+    nextQuestion(null)
+    generateQuestions()}
   else {timerSeconds--;}
   
 };
@@ -202,7 +225,6 @@ function reloadTimerHtml() {
   let progressBar = document.getElementById('progressBar');
   let percentage = (timerSeconds / 30) * 100;
   progressBar.style.width = percentage + '%';
-
   donutTimer(timerSeconds);
 }
 
@@ -220,11 +242,22 @@ function randomize() {
     temp.splice(randValue, 1);
   }
 }
+let timerColor = "#00FFFF"
 function donutTimer(timerSeconds) {
   let avanzo = (30-timerSeconds);
   let xValues = ["Tempo rimanente", "Tempo passato"];
   let yValues = [ avanzo,timerSeconds];
-  let barColors = ["#98699C", "#00FFFF"];
+  if(timerSeconds<=30&&timerSeconds>20) {
+    timerColor = "#00FFFF"
+  progressBar.style.backgroundColor = timerColor} 
+  else if(timerSeconds<=20&&timerSeconds>10) {
+    timerColor = "#ffd966"
+    progressBar.style.backgroundColor = timerColor}
+  else if(timerSeconds<=10) {
+    timerColor = "#d93737"
+    progressBar.style.backgroundColor = timerColor
+  }
+  let barColors = ["#98699C", timerColor];
 
 
   new Chart("timerChart", {
@@ -297,12 +330,17 @@ let randomQuestions = [];
 6)imposta il valore di clock uguale alla variabile timerSecond;
 7)imposta decremento secondi;
 8)inizializza il timer*/
-window.onload = function () {
+
   currentQuestion = 0;
 
   // Fetch delle domande da un URL esterno
   fetch(`https://opentdb.com/api.php?amount=${questionsNumber}&category=18&difficulty=${difficulty}`)
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then(data => {
     // Assegna le domande ottenute alla variabile questions
     questions = data;
@@ -318,4 +356,3 @@ window.onload = function () {
     timerSeconds--;
     startTimer();
   });
-}

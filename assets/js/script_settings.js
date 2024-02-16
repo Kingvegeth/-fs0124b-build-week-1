@@ -1,4 +1,7 @@
-                    /* IMPOSTAZIONE DIFFICOLTA' E NUMERO DOMANDE*/
+const settingsPage2 = document.getElementById('settings')
+const quizPage = document.getElementById('quiz')
+
+/* IMPOSTAZIONE DIFFICOLTA' E NUMERO DOMANDE*/
 const startButton = document.querySelector(".start_button");
 
 startButton.addEventListener("click", function () {
@@ -10,6 +13,9 @@ startButton.addEventListener("click", function () {
     const number = selectedQuestionsNumberInput.value;
     sessionStorage.setItem('n',number)
     
-    window.location = "quiz.html";
+    settingsPage2.classList.add('hidden')
+    quizPage.classList.remove('hidden')
   });
+
+  
                     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

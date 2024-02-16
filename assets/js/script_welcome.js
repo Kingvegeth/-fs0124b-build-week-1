@@ -2,6 +2,9 @@ const check = document.querySelector(".check");
 const button = document.querySelector(".proceed_button");
 const alerta = document.querySelector(".alert");
 
+const welcomePage = document.getElementById('welcome')
+const settingsPage = document.getElementById('settings')
+
 
   check.addEventListener("click", () => {
   if (check.classList.contains("clicked")) {
@@ -16,9 +19,13 @@ const alerta = document.querySelector(".alert");
 });
 
 button.addEventListener("click", (e) => {
-  e.preventDefault()
+  e.preventDefault();
   if (!check.classList.contains("clicked")) alerta.classList.remove("hidden");
-  else{
-    window.location = "settings.html";
+  else {
+    welcomePage.classList.add('hidden');
+    settingsPage.classList.remove('hidden');
+
+    
   }
 });
+
