@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+/*----------------------------------------WELCOME------------------------------------*/
 body {
     font-family: "Outfit", sans-serif;
     background-image: url(../img/bg.jpg);
@@ -167,6 +168,8 @@ form {
     text-decoration: underline;
 }
 
+
+/*---------------------------------FEEDBACK-----------------------------------*/
 #feedback-container {
     font-size: 20px;
     text-align: center;
@@ -251,6 +254,9 @@ form {
     cursor: pointer;
  }
 
+
+
+ /*------------------------------------QUIZ-----------------------------*/
  .margin-left {
     margin-left: 10%;
  }

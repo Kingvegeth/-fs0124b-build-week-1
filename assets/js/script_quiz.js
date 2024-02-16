@@ -1,17 +1,20 @@
+// Variabili per memorizzare le domande, le risposte corrette e sbagliate, la difficoltà e il numero di domande
 let questions = [];
-let rightAnswersList = []
-let wrongAnswersList = []
-let difficulty = sessionStorage.getItem('difficulty')
-let questionsNumber = sessionStorage.getItem('n')
-let correctThreshold = Math.ceil(questionsNumber/2)
+let rightAnswersList = [];
+let wrongAnswersList = [];
+let difficulty = sessionStorage.getItem('difficulty');
+let questionsNumber = sessionStorage.getItem('n');
+let correctThreshold = Math.ceil(questionsNumber / 2);
 
-
+// Funzione per generare le domande e le risposte
 function generateQuestions() {
   let wrapper = document.getElementById('questionWrapper');
 
+  // Verifica se ci sono domande disponibili
   if (questions.results && questions.results.length > 0) {
     let currentQuestionObj = questions.results[currentQuestion];
 
+    // Inserisce la domanda nell'HTML
     wrapper.innerHTML = `
       <div id="question">
         <h2 id="taskTitle">${currentQuestionObj.question}</h2>
@@ -21,24 +24,24 @@ function generateQuestions() {
 
     let containerQuestion = document.getElementById('answer');
 
-    // Combina risposte corrette e scorrette in un array
+    // Combina risposte corrette e scorrette in un array e le mescola
     let allAnswers = currentQuestionObj.incorrect_answers.concat(currentQuestionObj.correct_answer);
-
-    // Randomizza l'ordine dell'array
     allAnswers = shuffleArray(allAnswers);
 
+    // Visualizza le risposte possibili
     for (let i = 0; i < allAnswers.length; i++) {
       containerQuestion.innerHTML += `
         <div class="option">${allAnswers[i]}</div>
       `;
     }
 
+    // Visualizza il numero della domanda corrente
     wrapper.innerHTML += `
       <div id="currentQuestion">QUESTION ${currentQuestion + 1} <span>/ ${questionsNumber}</span></div>
     `;
 
+    // Aggiunge event listeners alle opzioni di risposta
     let option = document.getElementsByClassName('option');
-
     for (let i = 0; i < option.length; i++) {
       let element = option[i];
       element.addEventListener("click", () => {
@@ -59,11 +62,13 @@ function shuffleArray(array) {
   return array;
 }
 
+// Funzione per trovare un'opzione di risposta basata sul testo
 function findOptionByText(text) {
   let options = document.querySelectorAll('.option');
   return Array.from(options).find(option => option.textContent.includes(text));
 }
 
+// Gestore per la prossima domanda
 let nextQuestion = function (string) {
   userAnswers.push(string);
 
@@ -71,12 +76,14 @@ let nextQuestion = function (string) {
   let selectedOption = findOptionByText(string);
 
   if (selectedOption) {
+    // Visualizza la risposta selezionata correttamente o erroneamente
     if (string === correctAnswer) {
       selectedOption.style.background = 'linear-gradient(180deg, rgba(0,255,0,0.7315301120448179) 0%, rgba(1,97,1,1) 100%)';
     } else {
       selectedOption.style.background = 'linear-gradient(180deg, rgba(255,0,0,0.7315301120448179) 0%, rgba(97,1,1,1) 100%)';
     }
 
+    // Passa alla prossima domanda dopo un certo periodo di tempo
     setTimeout(() => {
       selectedOption.style.background = '';
 
@@ -100,219 +107,210 @@ let nextQuestion = function (string) {
   }
 };
 
+// Funzione per visualizzare i risultati del quiz
 function result() {
   let main = document.getElementById('main');
   let rightAnswers = 0;
   let wrongAnswers = 0;
 
+  // Calcola il numero di risposte corrette e sbagliate
   for (let i = 0; i < questions.results.length; i++) {
     let userAnswer = userAnswers[i];
     let correctAnswer = questions.results[i].correct_answer;
 
     if (userAnswer === correctAnswer) {
       rightAnswers += 1;
-      rightAnswersList.push(userAnswer)
+      rightAnswersList.push(userAnswer);
     } else {
       wrongAnswers += 1;
-      wrongAnswersList.push(userAnswer)
+      wrongAnswersList.push(userAnswer);
     }
   }
+
+  // Visualizza i risultati
   main.innerHTML = `
-  <div>
-  <h2 class="evidence">Results</h2> 
-  <p class="subTitle">The summary of your answer: </p> 
-  </div>
-  
-  <div id="flexContainer">
-  
-  <div class="Answers align-left">
-  Correct <br> <span class="evidence"> ${Math.floor((rightAnswers / questions.results.length) * 100)}% </span>
-  <p class="miniTitle"> ${rightAnswers}/${questions.results.length} questions </p> 
-  </div>
-  
-  <div id="answerText" class="flex">
-  <div class=ring-shadow><canvas id="resultChart"></canvas></div>
-  <div id="textResult"></div>
-  </div>
-  
-  <div class="Answers align-right">
-  Wrong <br> <span class="evidence"> ${Math.ceil((wrongAnswers / questions.results.length) * 100)}% </span>
-  <p class="miniTitle"> ${wrongAnswers}/${questions.results.length} questions </p> 
-  </div>
-  
-  </div>
-  
-  <div>
-  <form>
-  <button id="resultButton"> RATE US </button>
-  </form>
-  </div>
+    <div>
+      <h2 class="evidence">Results</h2> 
+      <p class="subTitle">The summary of your answer: </p> 
+    </div>
+
+    <div id="flexContainer">
+      <div class="Answers align-left">
+        Correct <br> <span class="evidence"> ${Math.floor((rightAnswers / questions.results.length) * 100)}% </span>
+        <p class="miniTitle"> ${rightAnswers}/${questions.results.length} questions </p> 
+      </div>
+
+      <div id="answerText" class="flex">
+        <div class=ring-shadow><canvas id="resultChart"></canvas></div>
+        <div id="textResult"></div>
+      </div>
+
+      <div class="Answers align-right">
+        Wrong <br> <span class="evidence"> ${Math.ceil((wrongAnswers / questions.results.length) * 100)}% </span>
+        <p class="miniTitle"> ${wrongAnswers}/${questions.results.length} questions </p> 
+      </div>
+    </div>
+
+    <div>
+      <form>
+        <button id="resultButton"> RATE US </button>
+      </form>
+    </div>
   `;
-  
 
-  const quizPage2 = document.getElementById('quiz')
-  const feedbackPage = document.getElementById('feedback-container')
+  // Mostra la pagina di feedback al click del bottone "RATE US"
+  const quizPage2 = document.getElementById('quiz');
+  const feedbackPage = document.getElementById('feedback-container');
+  const rateUsButton = document.getElementById('resultButton');
 
-const rateUsButton = document.getElementById('resultButton')
-rateUsButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    quizPage2.classList.add('hidden')
-    feedbackPage.classList.remove('hidden')
+  rateUsButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    quizPage2.classList.add('hidden');
+    feedbackPage.classList.remove('hidden');
   });
 
-
-
-  let testo;
-  
-  if (rightAnswers >= correctThreshold) {
-    testo = `<span class="color"><span class="resultDonut"> Congratulations!</span><p>You passed the exam.</p> </span><p class="instructions">We'll send you the certificate in few minutes.</p><p class="instructions"> Check your email (including promotions/spam folder)</p>`;
-  } else {
-    testo = ` <span class="color"> <span class="resultDonut"> Sorry! </span> <br> You didn't pass the exam.</span>`;
-  }
-
-  const textResult = document.getElementById("textResult");
-  textResult.innerHTML = testo;
-
-  donutChart(wrongAnswers, rightAnswers);
+// Imposta il testo dei risultati in base al superamento o meno dell'esame
+let testo;
+if (rightAnswers >= correctThreshold) {
+  testo = `<span class="color"><span class="resultDonut"> Congratulations!</span><p>You passed the exam.</p> </span><p class="instructions">We'll send you the certificate in few minutes.</p><p class="instructions"> Check your email (including promotions/spam folder)</p>`;
+} else {
+  testo = ` <span class="color"> <span class="resultDonut"> Sorry! </span> <br> You didn't pass the exam.</span>`;
 }
 
+// Aggiorna il testo dei risultati nella pagina HTML
+const textResult = document.getElementById("textResult");
+textResult.innerHTML = testo;
+
+// Genera il grafico a ciambella dei risultati
+donutChart(wrongAnswers, rightAnswers);
+}
+
+// Avvia il timer
 function startTimer () {
-  timerInterval = setInterval(function() {updateTimer();}, 1000);
+timerInterval = setInterval(function() {updateTimer();}, 1000);
 }
 
+// Ferma il timer
 function stopTimer () {
-  clearInterval(timerInterval);
+clearInterval(timerInterval);
 }
 
+// Aggiorna il timer
 function updateTimer() {
-
-  reloadTimerHtml();
-  if (timerSeconds == 0) {
-    timerColor = "#00FFFF"
-    resetTimer()
-    currentQuestion += 1;
-    nextQuestion(null)
-    generateQuestions()}
-  else {timerSeconds--;}
-  
+reloadTimerHtml();
+if (timerSeconds == 0) {
+timerColor = "#00FFFF"
+resetTimer()
+currentQuestion += 1;
+nextQuestion(null)
+generateQuestions()}
+else {timerSeconds--;}
 };
 
-/*1)ferma il tempo richiamando la funzione stopTimer;
-2)imposta il valore di timerSeconds a 30;
-3)esegue un refresh a video di timer a progress bar tramite la funzione reloadTimerHtml;
-4)imposta il decremento dei secondi di timerSecond;
-5)fa ripartire il tempo tramite la funzione start Timer;*/
+/* Ferma il timer, reimposta il valore a 30 secondi, aggiorna la visualizzazione del timer e fa ripartire il timer */
 function resetTimer() {
-  stopTimer();
-  timerSeconds = 30;
-  reloadTimerHtml();
-  timerSeconds--;
-  startTimer(); 
-  
+stopTimer();
+timerSeconds = 30;
+reloadTimerHtml();
+timerSeconds--;
+startTimer(); 
 }
 
-/*applica il dvi con id timer nell?html nella variabile clock, imposta il valore di clock con timersecond, aggancia il div con id progressBar basandosi sul valore di timer second,
-tale valore servirà a stabilire la percentuale di riduzione della larghezza della progressBar*/
+/* Aggiorna la visualizzazione del timer nell'HTML */
 function reloadTimerHtml() {
-  let clock = document.getElementById('timerDiv');
-  if (timerSeconds > 9){
-    clock.innerHTML=timerSeconds;
-  }else {
-    let stringNumber =`&nbsp;${timerSeconds}`;
-    clock.innerHTML=stringNumber;
-  }
-
-  let progressBar = document.getElementById('progressBar');
-  let percentage = (timerSeconds / 30) * 100;
-  progressBar.style.width = percentage + '%';
-  donutTimer(timerSeconds);
+let clock = document.getElementById('timerDiv');
+if (timerSeconds > 9){
+clock.innerHTML=timerSeconds;
+}else {
+let stringNumber =`&nbsp;${timerSeconds}`;
+clock.innerHTML=stringNumber;
 }
 
-/*1)dichiara che la variabile tempIndex è uguale alla lunghezza dell'arraytemp
-2)cicla l'array
-3)dichiara che randValue sia un numero casuale 
-4)pusha nell'array randomQuestions la domanda selezionata randomicamente
-5)per far si che non vengano estratti doppioni è necessario utilizzare splice, che ci permette di togliere 1 elemento corrispondente nell'array al numero generato,
-splice in questo caso è in una gioiosa collaborazione con randValue, perchè ogni volta che un numero viene generato viene anche automaticamente rimosso.*/
+let progressBar = document.getElementById('progressBar');
+let percentage = (timerSeconds / 30) * 100;
+progressBar.style.width = percentage + '%';
+donutTimer(timerSeconds);
+}
+
+/* Randomizza l'ordine delle domande */
 function randomize() {
-  let tempIndex = temp.length;
-  for (let i = 0; i < tempIndex; i++) {
-    let randValue = Math.floor(Math.random() * temp.length);
-    randomQuestions.push(temp[randValue]);
-    temp.splice(randValue, 1);
-  }
+let tempIndex = temp.length;
+for (let i = 0; i < tempIndex; i++) {
+let randValue = Math.floor(Math.random() * temp.length);
+randomQuestions.push(temp[randValue]);
+temp.splice(randValue, 1);
+}
 }
 let timerColor = "#00FFFF"
 function donutTimer(timerSeconds) {
-  let avanzo = (30-timerSeconds);
-  let xValues = ["Tempo rimanente", "Tempo passato"];
-  let yValues = [ avanzo,timerSeconds];
-  if(timerSeconds<=30&&timerSeconds>20) {
-    timerColor = "#00FFFF"
-  progressBar.style.backgroundColor = timerColor} 
-  else if(timerSeconds<=20&&timerSeconds>10) {
-    timerColor = "#ffd966"
-    progressBar.style.backgroundColor = timerColor}
-  else if(timerSeconds<=10) {
-    timerColor = "#d93737"
-    progressBar.style.backgroundColor = timerColor
-  }
-  let barColors = ["#98699C", timerColor];
+let avanzo = (30-timerSeconds);
+let xValues = ["Tempo rimanente", "Tempo passato"];
+let yValues = [ avanzo,timerSeconds];
+if(timerSeconds<=30&&timerSeconds>20) {
+timerColor = "#00FFFF"
+progressBar.style.backgroundColor = timerColor} 
+else if(timerSeconds<=20&&timerSeconds>10) {
+timerColor = "#ffd966"
+progressBar.style.backgroundColor = timerColor}
+else if(timerSeconds<=10) {
+timerColor = "#d93737"
+progressBar.style.backgroundColor = timerColor
+}
+let barColors = ["#98699C", timerColor];
 
+// Crea il grafico a ciambella per il timer
+new Chart("timerChart", {
+type: "doughnut",
+data: {
+labels: xValues,
+datasets: [{
+backgroundColor: barColors, 
+borderColor: "rgba(0, 0, 0, 0)" , 
+data: yValues ,
+}]
+},
+options: {
+title: { display: false },
+cutoutPercentage: 75,                       
+legend: {display : false},
 
-  new Chart("timerChart", {
-    type: "doughnut",
-    data: {
-      labels: xValues,
-      datasets: [{
-        backgroundColor: barColors, 
-        borderColor: "rgba(0, 0, 0, 0)" , 
-        data: yValues ,
-      }]
-    },
-    options: {
-      title: { display: false },
-      cutoutPercentage: 75,                       
-      legend: {display : false},
-  
-      animation: {
-       animateRotate: false,
-       animateScale: false,
-      },
-      events: [],
-    }
-  });
+animation: {
+animateRotate: false,
+animateScale: false,
+},
+events: [],
+}
+});
 }
 function donutChart(wrongAnswers, rightAnswers) {
-  let xValues = ["Wrong Answers", "Right Answers"];
-  let yValues = [wrongAnswers, rightAnswers];
-  let barColors = ["#C2128D", "#00FFFF"]
+let xValues = ["Wrong Answers", "Right Answers"];
+let yValues = [wrongAnswers, rightAnswers];
+let barColors = ["#C2128D", "#00FFFF"]
 
-  new Chart("resultChart", {
-    type: "doughnut",
-    data: {
-      labels: xValues,
-      datasets: [{
-        backgroundColor: barColors, 
-        borderColor: "rgba(0, 0, 0, 0)" , 
-        data: yValues ,
+new Chart("resultChart", {
+type: "doughnut",
+data: {
+labels: xValues,
+datasets: [{
+backgroundColor: barColors, 
+borderColor: "rgba(0, 0, 0, 0)" , 
+data: yValues ,
 
-      }]
-    },
-    options: {
-      title: { display: false },
-      cutoutPercentage: 75,                       
-      legend: {display : false},
-      circumference : 2*Math.PI
-    }
-  })
+}]
+},
+options: {
+title: { display: false },
+cutoutPercentage: 75,                       
+legend: {display : false},
+circumference : 2*Math.PI
+}
+})
 };
-
 /*
-1)timerSeconds = utilizzata per storare il valore del timer in un determinato momento;
-2)timerInterval = utilizzata per storare il timer in se;
-3)userAnswer = è l'array riempito man mano dalle scelte dell'utente;
-4)temp è l'array "clone" di questions, utilizzato per randomizzazione delle domande generate a schermo,
+1)TimerSeconds = utilizzata per storare il valore del timer in un determinato momento;
+2)TimerInterval = utilizzata per storare il timer in se;
+3)UserAnswer = è l'array riempito man mano dalle scelte dell'utente;
+4)Temp è l'array "clone" di questions, utilizzato per randomizzazione delle domande generate a schermo,
 se avessimo usata l'array originale per generare le domande, non avremmo potuto far un confronto tra le rispsote dell'utente*/
 let timerSeconds;
 let timerInterval;
@@ -322,18 +320,15 @@ let temp = [...questions];
 let randomQuestions = [];
 
 /*
-1)setta valore di currentQuestion;
-2)avvia la randomizzazione della domanda:
-3)genera domanda e risposta corrispondente a schermo;
-4)imposta il timer a 30 secondi;
-5)aggancia il div con id timer dichiarandolo nella variabile;
-6)imposta il valore di clock uguale alla variabile timerSecond;
-7)imposta decremento secondi;
-8)inizializza il timer*/
-
+1)Setta valore di currentQuestion;
+2)Avvia la randomizzazione della domanda:
+3)Genera domanda e risposta corrispondente a schermo;
+4)Imposta il timer a 30 secondi;
+5)Aggancia il div con id timer dichiarandolo nella variabile;
+6)Imposta il valore di clock uguale alla variabile timerSecond;
+7)Imposta decremento secondi;
+8)Inizializza il timer*/
   currentQuestion = 0;
-
-
   // Fetch delle domande da un URL esterno
 function pippo(params) {
   
